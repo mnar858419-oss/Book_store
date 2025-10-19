@@ -55,53 +55,38 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header text-center">ورود</div>
+                        <div class="card-header text-center">ثبت نام</div>
                         <div class="card-body">
-                            <form action="{% url 'login' %}" method="post">
+                            <form action="{% url 'register' %}" method="post">
                                 {% csrf_token %}
                                 {{ form.non_field_errors }}
+                                {% for field in form %}
                                 <div class="form-group row">
-                                    <label for="email_address" class="col-md-4 col-form-label text-md-right">
-                                        {{ form.username.label }} </label>
+                                    <label for="" class="col-md-4 col-form-label text-md-right">
+                                        {{ field.label_tag }} </label>
                                     <div class="col-md-6">
-                                        {{ form.username }}
-                                        {{ form.username.errors }}
+                                        {{ field }}
+                                        {{ field.errors }}
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="password" class="col-md-4 col-form-label text-md-right">
-                                        {{form.password.label}}</label>
-                                    <div class="col-md-6">
-                                        {{ form.password }}
-                                    </div>
+                                {% endfor %}
+
+
+
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        ثبت نام
+                                    </button>
+                                    <a href="{% url 'login' %}" class="btn btn-link">
+                                        حساب کاربری دارم
+                                    </a>
                                 </div>
-
                         </div>
-
-                        <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                ورود
-                            </button>
-                            <a href="#" class="btn btn-link">
-                                فراموشی گذرواژه
-                            </a>
-                        </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
         </div>
-        </div>
 
     </main>
-
-
-
-
-
-
-
-</body>
-
-</html>

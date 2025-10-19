@@ -12,6 +12,8 @@ class CustomUser(AbstractUser):
         upload_to="profile_picutures",
         default="pofile_pictures/default.jpg",
         verbose_name="عکس پروفایل",
+        null=True,
+        blank=True,
     )
     bio = models.TextField("بیوگرافی")
     birthdate = models.DateField(verbose_name="تاریخ تولد ", null=True)

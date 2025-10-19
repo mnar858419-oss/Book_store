@@ -28,8 +28,13 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="{% url 'home' %}">خانه</a>
+                    {% if user.is_authenticated %}
                     <a class="nav-link active" aria-current="page" href="{% url 'new_book'  %}">ایجاد کتاب</a>
-
+                    <a href="{% url 'logout' %}" class="nav-link">خروج</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="nav-link">ورود</a>
+                    <a href="{% url 'register' %}" class="nav-link">ثبت نام</a>
+                    {% endif %}
                     <a class="nav-link" href="#">درباره ما</a>
                     <a class="nav-link" href="#">تماس با ما</a>
                     <a class="nav-link" href="#">لیست قیمت‌ها</a>
@@ -41,6 +46,11 @@
 
 
     <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success text-center w-50 mt-2">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
         {% block main %} {% endblock %}
     </div>
 

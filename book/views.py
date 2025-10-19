@@ -1,8 +1,10 @@
 from doctest import REPORT_NDIFF
+from math import log
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from book.models import Author, Book, Category
 from book.forms import CategoryForm, AuthorForm, BookForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -21,6 +23,7 @@ def book_detail(request, id):
     return render(request, "book/book_detail.html", context)
 
 
+@login_required
 def create_book(request):
     form = BookForm()
     if request.method == "POST":
@@ -31,6 +34,7 @@ def create_book(request):
     return render(request, "book/new_book.html", {"form": form})
 
 
+@login_required
 def create_category(request):
     form = CategoryForm()
     if request.method == "POST":
@@ -45,6 +49,7 @@ def create_category(request):
     return render(request, "book/new_category.html", context={"form": form})
 
 
+@login_required
 def create_author(request):
     form = AuthorForm()
     if request.method == "POST":
@@ -56,6 +61,7 @@ def create_author(request):
     return render(request, "book/new_author.html", {"form": form})
 
 
+@login_required
 def edit_book(request, id):
     book = get_object_or_404(Book, pk=id)
     form = BookForm(instance=book)
@@ -69,6 +75,7 @@ def edit_book(request, id):
     return render(request, "book/edit_book.html", context={"form": form, "book": book})
 
 
+@login_required
 def delete_book(request, id):
     book = get_object_or_404(Book, pk=id)
     if request.method == "POST":
@@ -76,6 +83,7 @@ def delete_book(request, id):
         return redirect("home")
 
 
+@login_required
 def archive_book(request, id):
     book = get_object_or_404(Book, pk=id)
     book.is_archived = True

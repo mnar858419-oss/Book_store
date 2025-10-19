@@ -37,6 +37,7 @@
                 <small>{{ book.author }}</small>
                 <small>{{ book.published_day }}</small>
             </div>
+            {% if user.is_superuser %}
             <div class="card-footer">
                 <a class="btn btn-warning" href="{% url 'edit_book' id=book.id %}">ویرایش</a>
                 <a class="btn btn-secondary" href="{% url 'archive_book' id=book.id %}">بایگانی</a>
@@ -44,6 +45,7 @@
                     حذف
                 </button>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

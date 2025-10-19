@@ -1,4 +1,3 @@
-import uu
 from django.db import models
 import uuid
 
@@ -44,3 +43,13 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.title}-{self.author}"
 
+
+class Review(models.Model):
+    user = models.ForeignKey(
+        "CustomUser",
+        on_delete=models.CASCADE,
+        related_name="user_reviews",
+    )
+    book = models.ForeignKey(
+        "Book", on_delete=models.CASCADE, related_name="book_reviews"
+    )
