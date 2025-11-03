@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 import uuid
 
 
@@ -46,7 +47,7 @@ class Book(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(
-        "CustomUser",
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="user_reviews",
     )

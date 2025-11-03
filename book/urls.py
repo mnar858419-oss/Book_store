@@ -13,8 +13,8 @@ from book.views import (
 
 
 urlpatterns = [
-    path("list/", home, name="home"),
-    path("", index, name="index"),
+    path("", home, name="home"),
+    path("index/", index, name="index"),
     path("details/<str:id>/", book_detail, name="book_detail"),
     path("book/new/", create_book, name="new_book"),
     path("category/new/", create_category, name="new_category"),
