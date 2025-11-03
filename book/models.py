@@ -28,17 +28,17 @@ class Category(models.Model):
 
 class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=50)
+    title = models.CharField("عنوان" , max_length=50)
     author = models.ForeignKey(
         "Author", on_delete=models.SET_NULL, null=True, verbose_name="نویسنده"
     )
-    category = models.ForeignKey("Category", on_delete=models.PROTECT)
-    published_day = models.DateField()
-    pages = models.PositiveSmallIntegerField(default=0)
+    category = models.ForeignKey( "Category" , on_delete=models.PROTECT , verbose_name='دسته بندی')
+    published_day = models.DateField("تاریخ انتشار")
+    pages = models.PositiveSmallIntegerField("تعداد صفحه" , default=0)
     summary = models.TextField("خلاصه")
-    cover = models.ImageField(upload_to="covers", default="covers/default.jpeg")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    cover = models.ImageField("عکس جلد" , upload_to="covers", default="covers/default.jpeg")
+    created_at = models.DateTimeField("تاریخ ساخت" , auto_now_add=True)
+    updated_at = models.DateTimeField("تاریخ ویرایش" , auto_now=True)
     is_archived = models.BooleanField(default=False)
 
     def __str__(self):

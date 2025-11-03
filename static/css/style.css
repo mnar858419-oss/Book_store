@@ -1,0 +1,166 @@
+
+
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('../fonts/Tanha.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* ---------------------------------
+   2. استایل های عمومی 
+   ---------------------------------
+*/
+
+a {
+    text-decoration: none;
+    color: #007bff; /* رنگ آبی برای لینک ها */
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* استایل های پیش فرض برای دکمه ها */
+button, .btn {
+    font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+h1, h2, h3 {
+    color: #2c3e50; /* رنگ سرمه‌ای عمیق برای عناوین */
+}
+
+
+
+/* ---------------------------------
+   3. استایل های نوار ناوبری (Header)
+   ---------------------------------
+*/
+#main-header {
+    background-color: #2c3e50; /* رنگ سرمه‌ای تیره */
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* سایه ملایم */
+}
+
+#main-header .container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex; /* برای چیدمان افقی عناصر */
+    justify-content: space-between; /* پخش کردن عناصر */
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #e67e22; /* رنگ نارنجی یا طلایی برای لوگو */
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.main-nav li {
+    margin-left: 25px;
+}
+
+.main-nav a {
+    color: white;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover {
+    color: #e67e22; /* تغییر رنگ در هاور */
+}
+
+/* استایل های بخش جستجو */
+.search-bar input[type="text"] {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px 0 0 4px; /* گوشه گرد فقط در سمت راست */
+    font-size: 0.95em;
+    outline: none;
+    width: 250px;
+}
+
+.search-bar button {
+    background-color: #3498db; /* رنگ آبی برای دکمه جستجو */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 0 4px 4px 0;
+    margin-right: -4px; /* برای چسباندن به فیلد ورودی */
+}
+
+.search-bar button:hover {
+    background-color: #2980b9;
+}
+
+/* استایل های بخش ورود/سبد خرید */
+.user-actions a {
+    color: white;
+    margin-right: 15px;
+}
+
+/* برای رفع مشکل جهت متن در بوت استرپ */
+body, h1, h2, h3, h4, h5, h6, p, a, div, span, input, button {
+    font-family: Tahoma, Arial, sans-serif; /* در اینجا می توانید فونت دلخواه خود (مثل Vazirmatn) را هم قرار دهید */
+    direction: rtl; 
+    text-align: right;
+}
+
+/* اصلاح نوار ناوبری بوت استرپ برای RTL */
+.navbar-nav .nav-link {
+    padding-left: 1rem;
+    padding-right: 0.5rem;
+}
+
+.navbar-nav {
+    margin-right: auto !important; /* منوها را به راست می برد */
+    margin-left: 0 !important;
+}
+
+/* استایل برای کارت‌های کتاب */
+.card-img-top {
+    border-bottom: 1px solid #eee;
+}
+
+.card-body {
+    padding: 1.5rem;
+    /* این خاصیت برای اطمینان از این است که دکمه‌ها در انتهای کارت‌ها هم‌تراز باشند */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-footer small {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* استایل برای دکمه مشاهده جزئیات */
+.btn-dark {
+    background-color: #2c3e50; /* رنگ سرمه‌ای عمیق */
+    border-color: #2c3e50;
+    transition: background-color 0.3s;
+}
+
+.btn-dark:hover {
+    background-color: #1a242f;
+    border-color: #1a242f;
+}
+
+.text-secondary {
+  color: white !important;
+}

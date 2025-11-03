@@ -1,65 +1,118 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">  
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>
-
-        {% block title %} My site {% endblock %}
-
+        {% block title %} فروشگاه کتابکا {% endblock %}
     </title>
+
+    <style>
+        body {
+  position: relative;
+  background-image: url("{% static 'img/bg.jpg' %}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* دلخواه */
+  height: 100vh;
+  margin: 0;
+}
+
+/* Overlay */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: rgba(0, 0, 0, 0.5); /* رنگ و شفافیت */
+  z-index: 0;
+}
+
+/* محتوای صفحه بالاتر از overlay */
+body * {
+  position: relative;
+  z-index: 1;
+}
+
+    </style>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="{% static 'book/css/style.css' %}">
 </head>
 
 <body>
 
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">فروشگاه کتاب</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <div class="container">
+            <a class="navbar-brand fw-bold text-warning" href="#">📚 کتابکا</a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">خانه</a>
+                
+                <div class="navbar-nav ms-auto"> 
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fas fa-home me-1"></i> خانه</a>
+                    
                     {% if user.is_authenticated %}
-                    <a class="nav-link active" aria-current="page" href="{% url 'new_book'  %}">ایجاد کتاب</a>
-                    <a href="{% url 'logout' %}" class="nav-link">خروج</a>
+                    <a class="nav-link" href="{% url 'new_book' %}"><i class="fas fa-plus-circle me-1"></i> ایجاد کتاب</a>
+                    <a href="{% url 'logout' %}" class="nav-link"><i class="fas fa-sign-out-alt me-1"></i> خروج</a>
                     {% else %}
-                    <a href="{% url 'login' %}" class="nav-link">ورود</a>
-                    <a href="{% url 'register' %}" class="nav-link">ثبت نام</a>
+                    <a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-in-alt me-1"></i> ورود</a>
+                    <a href="{% url 'register' %}" class="nav-link"><i class="fas fa-user-plus me-1"></i> ثبت نام</a>
                     {% endif %}
-                    <a class="nav-link" href="#">درباره ما</a>
-                    <a class="nav-link" href="#">تماس با ما</a>
-                    <a class="nav-link" href="#">لیست قیمت‌ها</a>
-
+                    
+                    <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> درباره ما</a>
+                    <a class="nav-link" href="#"><i class="fas fa-envelope me-1"></i> تماس با ما</a>
+                    <a class="nav-link" href="#"><i class="fas fa-tags me-1"></i> لیست قیمت‌ها</a>
+                    
                 </div>
+                
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="جستجوی کتاب..." aria-label="Search">
+                    <button class="btn btn-outline-warning" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+
             </div>
         </div>
     </nav>
 
 
-    <div class="container">
+    <div class="container mt-4">
         {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-success text-center w-50 mt-2">{{ message }}</div>
+        <div class="alert alert-success alert-dismissible fade show text-center w-75 mx-auto mt-3" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         {% endfor %}
         {% endif %}
+        
         {% block main %} {% endblock %}
     </div>
 
 
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">تمامی حقوق این فروشگاه محفوظ است. &copy; {% now "Y" %}</p>
+        </div>
+    </footer>
 
-    <!-- <img id="fimage" src="{% static 'images/footer.webp' %}" alt=""> -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 </body>
 
 </html>
+

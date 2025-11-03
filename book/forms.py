@@ -81,8 +81,8 @@ class BookForm(forms.ModelForm):
             "summary": forms.Textarea(attrs={"class": "form-control mt-2"}),
         }
 
-    def clean_title(self):
-        title = self.cleaned_data.get("title")
-        if len(title) < 10:
-            raise forms.ValidationError("این فیلد نمی تواند کمتر از ۱۰ کاراکتر باشد")
-        return title
+    # def clean_title(self):
+    #     title = self.cleaned_data.get("title")
+    #     if len(title) < 10:
+    #         raise forms.ValidationError("این فیلد نمی تواند کمتر از ۱۰ کاراکتر باشد")
+    #     return title

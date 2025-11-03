@@ -1,22 +1,50 @@
 {% extends 'book/base.html' %}
-{% block title %} لیست کتاب‌ها {% endblock %}
+{% load static %}  {% block title %} لیست کتاب‌ها {% endblock %}
 
 {% block main %}
-<div class="row mt-2">
-    <div class="col-sm-10">
-        <ul class="list-group">
-            {% for book in books %}
 
-            <li class="list-group-item d-flex justify-content-between"><a class="text-decoration-none"
-                    href="{% url 'book_detail' id=book.id %}">
-                    {{book.title}} </a> <span>{{ book.author }}</span> </li>
+<h2 class="my-4 text-center text-white">
+  لیست کامل کتاب‌های موجود
+</h2><hr class="mb-4">
 
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"> 
+    
+    {% for book in books %}
 
-            {% endfor %}
-        </ul>
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0"> 
+            
+            {% if book.cover %}
+                <img src="{{ book.cover.url }}" class="card-img-top p-3" alt="{{ book.title }} cover" style="height: 250px; object-fit: contain;">
+            {% else %}
+                <img src="{% static 'book/img/default_cover.jpg' %}" class="card-img-top p-3" alt="جلد پیشفرض" style="height: 250px; object-fit: contain;">
+            {% endif %}
 
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title fw-bold text-primary">{{ book.title }}</h5>
+                <p class="card-text text-muted">نویسنده: 
+                    <span class="fw-medium">{{ book.author }}</span>
+                </p>
+                
+                {% if book.price %}
+                <p class="card-text fs-5 text-success mt-auto mb-2">قیمت: {{ book.price }} تومان</p>
+                {% endif %}
+                
+                <div class="mt-2">
+                    <a href="{% url 'book_detail' id=book.id %}" class="btn btn-dark w-100">
+                        <i class="fas fa-eye me-1"></i> مشاهده جزئیات
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card-footer bg-light border-0">
+                <small class="text-muted">تاریخ انتشار: {% if book.published_day %} {{ book.published_day }} {% else %} نامشخص {% endif %}</small>
+                </div>
+        </div>
     </div>
-</div>
 
+    {% endfor %}
+    
+</div>
 
 {% endblock %}
