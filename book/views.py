@@ -1,10 +1,11 @@
 from doctest import REPORT_NDIFF
 from math import log
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from book.models import Author, Book, Category
-from book.forms import CategoryForm, AuthorForm, BookForm
+from book.models import Author, Book, Category , Review , Reply
+from book.forms import CategoryForm, AuthorForm, BookForm , ReplyForm , ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 
 def index(request):
@@ -89,3 +90,42 @@ def archive_book(request, id):
     book.is_archived = True
     book.save()
     return redirect("home")
+
+@login_required
+def book_detail(request, id):
+    book = get_object_or_404(Book, id=id)
+    reviews = Review.objects.filter(book=book).select_related('user').prefetch_related('replies__user')
+
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            new_review = review_form.save(commit=False)
+            new_review.book = book
+            new_review.user = request.user
+            new_review.save()
+            messages.success(request, "نظر شما ثبت شد ✅")
+            return redirect('book_detail', id=book.id)
+    else:
+        review_form = ReviewForm()
+
+    context = {
+        'book': book,
+        'reviews': reviews,
+        'review_form': review_form,
+        'reply_form': ReplyForm(),
+    }
+    return render(request, 'book/book_detail.html', context)
+
+
+@login_required
+@require_POST
+def add_reply(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    reply_form = ReplyForm(request.POST)
+    if reply_form.is_valid():
+        reply = reply_form.save(commit=False)
+        reply.review = review
+        reply.user = request.user
+        reply.save()
+        messages.success(request, "پاسخ شما ثبت شد 💬")
+    return redirect('book_detail', id=review.book.id)

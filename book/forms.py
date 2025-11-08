@@ -1,6 +1,6 @@
 from pydoc import describe
 from django import forms
-from book.models import Author, Book
+from book.models import Author, Book , Review , Reply
 
 
 class CategoryForm(forms.Form):
@@ -86,3 +86,38 @@ class BookForm(forms.ModelForm):
     #     if len(title) < 10:
     #         raise forms.ValidationError("این فیلد نمی تواند کمتر از ۱۰ کاراکتر باشد")
     #     return title
+
+class ReviewForm(forms.ModelForm):
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
+
+    rating = forms.ChoiceField(
+        choices=RATING_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-select',       # ظاهر بوت‌استرپ
+        }),
+        label='امتیاز شما'
+    )
+
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']
+        widgets = {
+            'comment': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': 'نظر خود را بنویسید...',
+                'class': 'form-control'
+            }),
+        }
+
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields = ['comment']
+        widgets = {
+            'comment': forms.Textarea(attrs={
+                'rows': 2,
+                'placeholder': 'پاسخ خود را بنویسید...',
+                'class': 'form-control'
+            }),
+        }

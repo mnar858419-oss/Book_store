@@ -1,3 +1,93 @@
+/* ---------------------------------
+   1. فونت‌ها و بدنه (Body)
+   ---------------------------------
+*/
+
+
+
+/* استایل برای کانتینر نظرات */
+.reviews-section {
+    padding: 30px 0;
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+/* پس‌زمینه جذاب برای هر نظر */
+.review-item {
+    background-color: #f8f9fa; /* رنگ خاکستری روشن */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* سایه ملایم */
+    border-right: 4px solid #007bff; /* نوار رنگی جذاب در کنار */
+}
+
+/* استایل عکس پروفایل */
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* گرد کردن عکس */
+    object-fit: cover;
+    margin-left: 10px;
+}
+
+/* استایل برای نمایش ستاره‌ها */
+.star-rating {
+    color: #ffc107; /* رنگ زرد طلایی برای ستاره‌ها */
+    font-size: 1.2rem;
+}
+
+/* استایل بخش پاسخ‌ها (ریپلای‌ها) */
+.reply-item {
+    background-color: #e9ecef; /* رنگ کمی تیره‌تر از نظر اصلی */
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    margin-right: 30px; /* تورفتگی پاسخ‌ها */
+    border-left: 2px solid #6c757d;
+}
+
+/* استایل برای فرم نظردهی جدید */
+.add-review-form {
+    background-color: #fff3cd; /* پس زمینه زرد ملایم برای جلب توجه */
+    border: 1px solid #ffeeba;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+/* استایل برای کانتینر (اختیاری، اما برای زیبایی بهتر است) */
+.no-reviews-box {
+    background-color: #343a40; /* پس‌زمینه تیره برای کنتراست */
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* استایل اصلی برای سفید کردن متن */
+.no-reviews-text {
+    /* 👈 این خط تضمین می‌کند که متن سفید باشد */
+    color: #ffffff !important; 
+    font-size: 1.4rem; 
+    font-weight: 300; 
+    line-height: 1.6;
+}
+
+.no-reviews-text i {
+    /* استایل آیکون */
+    color: #ffc107; 
+    font-size: 2rem;
+    display: block; 
+    margin-bottom: 10px;
+}
+
+.no-reviews-text strong {
+    /* استایل متن بولد شده */
+    color: #28a745; 
+    font-weight: 700;
+}
 
 
 @font-face {
@@ -7,138 +97,51 @@
     font-style: normal;
 }
 
-/* ---------------------------------
-   2. استایل های عمومی 
-   ---------------------------------
-*/
-
-a {
-    text-decoration: none;
-    color: #007bff; /* رنگ آبی برای لینک ها */
-}
-
-a:hover {
-    color: #0056b3;
-}
-
-/* استایل های پیش فرض برای دکمه ها */
-button, .btn {
+body {
     font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-h1, h2, h3 {
-    color: #2c3e50; /* رنگ سرمه‌ای عمیق برای عناوین */
-}
-
-
-
-/* ---------------------------------
-   3. استایل های نوار ناوبری (Header)
-   ---------------------------------
-*/
-#main-header {
-    background-color: #2c3e50; /* رنگ سرمه‌ای تیره */
-    color: white;
-    padding: 15px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* سایه ملایم */
-}
-
-#main-header .container {
-    max-width: 1200px;
-    margin: auto;
-    display: flex; /* برای چیدمان افقی عناصر */
-    justify-content: space-between; /* پخش کردن عناصر */
-    align-items: center;
-    padding: 0 20px;
-}
-
-.logo {
-    margin: 0;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #e67e22; /* رنگ نارنجی یا طلایی برای لوگو */
-}
-
-.main-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.main-nav li {
-    margin-left: 25px;
-}
-
-.main-nav a {
-    color: white;
-    font-size: 1em;
-    transition: color 0.3s;
-}
-
-.main-nav a:hover {
-    color: #e67e22; /* تغییر رنگ در هاور */
-}
-
-/* استایل های بخش جستجو */
-.search-bar input[type="text"] {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px 0 0 4px; /* گوشه گرد فقط در سمت راست */
-    font-size: 0.95em;
-    outline: none;
-    width: 250px;
-}
-
-.search-bar button {
-    background-color: #3498db; /* رنگ آبی برای دکمه جستجو */
-    color: white;
-    padding: 8px 15px;
-    border-radius: 0 4px 4px 0;
-    margin-right: -4px; /* برای چسباندن به فیلد ورودی */
-}
-
-.search-bar button:hover {
-    background-color: #2980b9;
-}
-
-/* استایل های بخش ورود/سبد خرید */
-.user-actions a {
-    color: white;
-    margin-right: 15px;
-}
-
-/* برای رفع مشکل جهت متن در بوت استرپ */
-body, h1, h2, h3, h4, h5, h6, p, a, div, span, input, button {
-    font-family: Tahoma, Arial, sans-serif; /* در اینجا می توانید فونت دلخواه خود (مثل Vazirmatn) را هم قرار دهید */
     direction: rtl; 
     text-align: right;
+    margin: 0;
+    padding: 0;
+    
+    /* ✅ اعمال Overlay با استفاده از خاصیت After روی Body */
+    position: relative; 
+    min-height: 100vh; /* حداقل ارتفاع تمام صفحه */
+    background-size: cover; /* مطمئن شوید این استایل در اینجا اعمال شده */
+    background-attachment: fixed; /* تصویر ثابت بماند */
+    /* اگر تصویر بک گراند را در style.css قرار داده اید، باید اینجا هم باشد */
+    /* background-image: url('../img/YOUR_BACKGROUND_IMAGE.jpg'); */ 
 }
 
-/* اصلاح نوار ناوبری بوت استرپ برای RTL */
-.navbar-nav .nav-link {
-    padding-left: 1rem;
-    padding-right: 0.5rem;
+/* لایه Overlay تیره و شفاف روی کل صفحه */
+body::after {
+    content: "";
+    position: fixed; /* برای پوشش کل صفحه و ثابت ماندن */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* رنگ مشکی با 50% شفافیت */
+    z-index: -1; /* قرارگیری زیر محتوای اصلی */
 }
 
-.navbar-nav {
-    margin-right: auto !important; /* منوها را به راست می برد */
-    margin-left: 0 !important;
-}
 
-/* استایل برای کارت‌های کتاب */
+/* ... (بقیه کدهای عمومی، هدر، جستجو و بوت استرپ) ... */
+/* ... (کدها را از پاسخ های قبلی خود کپی کنید و در اینجا قرار دهید) ... */
+
+
+/* ---------------------------------
+   4. استایل کارت‌های کتاب و اسکرول افقی (Slider)
+   ---------------------------------
+*/
+
+/* استایل برای کارت‌ها */
 .card-img-top {
     border-bottom: 1px solid #eee;
 }
 
 .card-body {
-    padding: 1.5rem;
-    /* این خاصیت برای اطمینان از این است که دکمه‌ها در انتهای کارت‌ها هم‌تراز باشند */
+    padding: 1rem; /* فشرده‌سازی پدینگ */
     display: flex;
     flex-direction: column;
 }
@@ -149,18 +152,118 @@ body, h1, h2, h3, h4, h5, h6, p, a, div, span, input, button {
     text-align: center;
 }
 
-/* استایل برای دکمه مشاهده جزئیات */
-.btn-dark {
-    background-color: #2c3e50; /* رنگ سرمه‌ای عمیق */
-    border-color: #2c3e50;
-    transition: background-color 0.3s;
+/* کانتینر اصلی برای نمایش کشویی */
+.book-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden; 
+    padding: 1rem 0; /* فاصله بالا و پایین */
 }
 
-.btn-dark:hover {
-    background-color: #1a242f;
-    border-color: #1a242f;
+/* استایل برای هر کارت کتاب */
+.book-slide-item {
+    flex-shrink: 0; 
+    width: 230px; /* ✅ کاهش عرض کارت‌ها برای فشرده‌تر شدن (مثلاً 230px) */
+    margin-right: 1rem; /* ✅ تغییر فاصله به راست برای RTL (بجای margin-left) */
+    align-self: stretch;
 }
 
+/* مخفی کردن نوار اسکرول (اختیاری) */
+.book-slider::-webkit-scrollbar {
+    height: 0.5rem;
+}
+
+/* اصلاح رنگ عنوان اصلی برای دیده شدن روی پس زمینه تیره */
 .text-secondary {
-  color: white !important;
+    color: white !important;
+}
+
+.text-white {
+    color: white !important;
+}
+
+.text-primary {
+    color: #f39c12 !important; /* رنگ نارنجی برای عنوان */
+}
+
+/* محدود کردن اندازه تصویر کاور */
+.card-img-top {
+  /* تنظیم حداکثر عرض (مثلاً 250px یا کمتر) */
+  max-width: 250px; 
+  /* اطمینان از اینکه ارتفاع متناسب با عرض تغییر کند */
+  height: auto; 
+  /* تصویر را در مرکز کارت قرار می‌دهد */
+  margin: 0 auto; 
+  /* اگر از display: block استفاده شود بهتر است */
+  display: block; 
+}
+
+/* محدود کردن حداکثر عرض خود کارت */
+.card {
+  max-width: 300px; /* حداکثر عرض کارت را کمی بیشتر از تصویر تنظیم کنید */
+  margin: 10px; /* برای فاصله گرفتن از بقیه عناصر */
+}
+
+/* برای کوچک کردن فونت عنوان کتاب */
+.card-title {
+  font-size: 1.25rem; /* یا هر اندازه دیگری که مناسب می‌دانید */
+}
+
+/* برای کوچک کردن فونت خلاصه کتاب */
+.card-text {
+  font-size: 0.9rem;
+}
+
+/* فیلدهای فرم‌ها */
+input[type="text"],
+textarea,
+select {
+    background-color: #fff !important;
+    color: #000 !important;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 6px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.form-check-input {
+    margin: 0 5px;
+}
+
+.radio label, .form-check label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* استایل مخصوص فیلد امتیاز (rating) */
+.rating-field {
+    display: flex;
+    flex-direction: row-reverse; /* برای راست‌چین بودن */
+    justify-content: flex-start;
+    gap: 10px; /* فاصله بین دایره‌ها */
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: nowrap;
+}
+
+/* دایره‌های رادیویی کوچک‌تر و منظم‌تر */
+.rating-field input[type="radio"] {
+    accent-color: #ffc107; /* رنگ طلایی برای ستاره‌ها یا دایره‌ها */
+    transform: scale(1.3); /* کمی بزرگ‌تر برای لمس آسان‌تر */
+    cursor: pointer;
+}
+
+/* فاصله بین لیبل‌ها و دایره‌ها */
+.rating-field label {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    cursor: pointer;
 }

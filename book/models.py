@@ -45,12 +45,72 @@ class Book(models.Model):
         return f"{self.title}-{self.author}"
 
 
+# class Review(models.Model):
+#     user = models.ForeignKey(
+#         settings.AUTH_USER_MODEL,
+#         on_delete=models.CASCADE,
+#         related_name="user_reviews",
+#     )
+#     book = models.ForeignKey(
+#         "Book", on_delete=models.CASCADE, related_name="book_reviews"
+#     )
 class Review(models.Model):
+    book = models.ForeignKey('Book', on_delete=models.CASCADE, related_name='reviews', verbose_name='کتاب')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_reviews", verbose_name='کاربر')
+
+    RATING_CHOICES = (
+        (1, '۱ ستاره'),
+        (2, '۲ ستاره'),
+        (3, '۳ ستاره'),
+        (4, '۴ ستاره'),
+        (5, '۵ ستاره'),
+    )
+
+    rating = models.IntegerField(choices=RATING_CHOICES, default=5, verbose_name='امتیاز')
+    comment = models.TextField(verbose_name='نظر', max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, verbose_name='تاریخ')
+
+    class Meta:
+        verbose_name = "نظرسنجی"
+        verbose_name_plural = "نظرسنجی‌ها"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.username} - {self.book.title} ({self.rating} stars)'
+
+
+class Reply(models.Model):
+
+    review = models.ForeignKey(
+        'Review', 
+        on_delete=models.CASCADE, 
+        related_name='replies',
+        verbose_name='ریپلای ها'
+    )
+
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="user_reviews",
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name="user_replies",
+        verbose_name='کاربر'
+        
     )
-    book = models.ForeignKey(
-        "Book", on_delete=models.CASCADE, related_name="book_reviews"
+
+    comment = models.TextField(
+        verbose_name='پاسخ',
+        max_length=500
     )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        null=True,
+        verbose_name='تاریخ'
+    )
+
+    class Meta:
+        verbose_name = 'پاسخها'
+        verbose_name_plural = "پاسخها"
+        ordering = ['created_at']
+        
+    def __str__(self):
+        return f'Replied by {self.user.username} on Review ID {self.review.id}'
