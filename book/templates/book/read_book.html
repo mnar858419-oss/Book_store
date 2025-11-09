@@ -1,26 +1,16 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'book/base.html' %}
+{% block title %}{{ book.title }} - خواندن کتاب{% endblock %}
 
-{% block content %}
-<div class="container mt-5">
-    <div class="card shadow p-4">
-        <h2 class="text-center mb-4">{{ book.title }}</h2>
-
-        <p><strong>نویسنده:</strong> {{ book.author }}</p>
-        <p><strong>توضیحات:</strong> {{ book.description }}</p>
-
-        {% if book.file %}
-    <div class="mt-4">
-        <iframe src="{{ book.file.url }}" width="100%" height="800px" style="border:none;"></iframe>
-    </div>
-{% else %}
-    <p class="text-danger text-center mt-4">فایل این کتاب هنوز بارگذاری نشده است.</p>
-{% endif %}
-
-
-        <div class="text-center mt-4">
-            <a href="{% url 'book_detail' id=book.id %}" class="btn btn-secondary">بازگشت به صفحه کتاب</a>
-        </div>
-    </div>
+{% block main %}
+<div class="container my-4">
+  <h2 class="text-center mb-4">{{ book.title }}</h2>
+  <div class="pdf-viewer" style="height: 90vh;">
+    <iframe src="{{ book.pdf_file.url }}" 
+            width="100%" height="100%" 
+            style="border:none;"
+            allowfullscreen>
+    </iframe>
+  </div>
+  <a href="{% url 'book_detail' id=book.id %}" class="btn btn-secondary mt-3">بازگشت</a>
 </div>
 {% endblock %}

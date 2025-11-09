@@ -168,7 +168,16 @@ def buy_book(request, id):
 @login_required
 def read_book(request, id):
     book = get_object_or_404(Book, id=id)
+
+    # بررسی اینکه آیا کاربر کتاب را خریده یا خیر
     if not UserBook.objects.filter(user=request.user, book=book).exists():
-        messages.error(request, "شما هنوز این کتاب را خریداری نکرده‌اید!")
+        messages.error(request, "شما هنوز این کتاب را خریداری نکرده‌اید! ❌")
         return redirect("book_detail", id=id)
-    return render(request, "book/read_book.html", {"book": book})
+
+    # بررسی اینکه کتاب فایل PDF دارد یا نه
+    if not book.pdf_file:
+        messages.error(request, "فایل PDF برای این کتاب در دسترس نیست 📄")
+        return redirect("book_detail", id=id)
+
+    context = {"book": book}
+    return render(request, "book/read_book.html", context)
