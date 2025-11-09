@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4">{{ book.title }}</h2>
+
+        <p><strong>نویسنده:</strong> {{ book.author }}</p>
+        <p><strong>توضیحات:</strong> {{ book.description }}</p>
+
+        {% if book.file %}
+    <div class="mt-4">
+        <iframe src="{{ book.file.url }}" width="100%" height="800px" style="border:none;"></iframe>
+    </div>
+{% else %}
+    <p class="text-danger text-center mt-4">فایل این کتاب هنوز بارگذاری نشده است.</p>
+{% endif %}
+
+
+        <div class="text-center mt-4">
+            <a href="{% url 'book_detail' id=book.id %}" class="btn btn-secondary">بازگشت به صفحه کتاب</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

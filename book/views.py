@@ -1,7 +1,8 @@
 from doctest import REPORT_NDIFF
 from math import log
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
-from book.models import Author, Book, Category , Review , Reply
+from decimal import Decimal
+from book.models import Author, Book, Category , Review , Reply , UserBook
 from book.forms import CategoryForm, AuthorForm, BookForm , ReplyForm , ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -94,6 +95,11 @@ def archive_book(request, id):
 @login_required
 def book_detail(request, id):
     book = get_object_or_404(Book, id=id)
+    user_has_book = False
+
+    if request.user.is_authenticated:
+        user_has_book = UserBook.objects.filter(user=request.user, book=book).exists()
+
     reviews = Review.objects.filter(book=book).select_related('user').prefetch_related('replies__user')
 
     if request.method == 'POST':
@@ -113,6 +119,7 @@ def book_detail(request, id):
         'reviews': reviews,
         'review_form': review_form,
         'reply_form': ReplyForm(),
+        "user_has_book": user_has_book,
     }
     return render(request, 'book/book_detail.html', context)
 
@@ -129,3 +136,39 @@ def add_reply(request, review_id):
         reply.save()
         messages.success(request, "پاسخ شما ثبت شد 💬")
     return redirect('book_detail', id=review.book.id)
+
+
+
+@login_required
+def buy_book(request, id):
+    book = get_object_or_404(Book, id=id)
+    user = request.user
+
+    # بررسی: آیا قبلاً خریده؟
+    if UserBook.objects.filter(user=user, book=book).exists():
+        messages.info(request, "شما قبلاً این کتاب را خریداری کرده‌اید 📚")
+        return redirect("book_detail", id=id)
+
+    # بررسی: اعتبار کافی دارد؟
+    if user.credit < book.price:
+        messages.error(request, "اعتبار شما برای خرید این کتاب کافی نیست 💰")
+        return redirect("book_detail", id=id)
+
+    # کم کردن اعتبار
+    user.credit -= book.price
+    user.save()
+
+    # ثبت خرید
+    UserBook.objects.create(user=user, book=book)
+
+    messages.success(request, f"خرید با موفقیت انجام شد ✅ اعتبار فعلی شما: {user.credit} تومان")
+    return redirect("book_detail", id=id)
+
+
+@login_required
+def read_book(request, id):
+    book = get_object_or_404(Book, id=id)
+    if not UserBook.objects.filter(user=request.user, book=book).exists():
+        messages.error(request, "شما هنوز این کتاب را خریداری نکرده‌اید!")
+        return redirect("book_detail", id=id)
+    return render(request, "book/read_book.html", {"book": book})

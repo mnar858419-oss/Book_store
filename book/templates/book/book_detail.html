@@ -45,6 +45,26 @@
         </div>
     </div>
 </div>
+{% if user.is_authenticated %}
+    {% if user_has_book %}
+        <a href="{% url 'read_book' id=book.id %}" class="btn btn-success w-100 mt-2">
+            خواندن کتاب 📖
+        </a>
+    {% else %}
+        <form action="{% url 'buy_book' id=book.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary w-100 mt-2">
+                خرید کتاب به قیمت {{ book.price }} تومان
+            </button>
+        </form>
+    {% endif %}
+{% else %}
+    <a href="{% url 'login' %}" class="btn btn-warning w-100 mt-2">
+        برای خرید وارد شوید
+    </a>
+{% endif %}
+
+
 
 <!-- بخش نظرات -->
 <div class="container">

@@ -10,6 +10,8 @@ from book.views import (
     delete_book,
     archive_book,
     add_reply,
+    buy_book,
+    read_book,
 
 )
 
@@ -25,4 +27,8 @@ urlpatterns = [
     path("book/delete/<str:id>/", delete_book, name="delete_book"),
     path("book/archive/<str:id>/", archive_book, name="archive_book"),
     path('reply/<int:review_id>/', add_reply, name='add_reply'),
+    path("book/buy/<str:id>/", buy_book, name="buy_book"),
+    path("book/read/<str:id>/", read_book, name="read_book"),
+
+
 ]

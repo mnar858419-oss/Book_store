@@ -40,6 +40,13 @@ class Book(models.Model):
     created_at = models.DateTimeField("تاریخ ساخت" , auto_now_add=True)
     updated_at = models.DateTimeField("تاریخ ویرایش" , auto_now=True)
     is_archived = models.BooleanField(default=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="قیمت")
+    pdf_file = models.FileField(
+    upload_to="books/pdfs/",
+    null=True,
+    blank=True,
+    verbose_name="فایل PDF کتاب")
+
 
     def __str__(self):
         return f"{self.title}-{self.author}"
@@ -114,3 +121,19 @@ class Reply(models.Model):
         
     def __str__(self):
         return f'Replied by {self.user.username} on Review ID {self.review.id}'
+
+
+
+class UserBook(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="purchased_books")
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="buyers")
+    purchased_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "book")
+        verbose_name = "کتاب خریداری‌شده"
+        verbose_name_plural = "کتاب‌های خریداری‌شده"
+
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title}"
+

@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-
-# Create your models here.
+from decimal import Decimal
 
 
 class CustomUser(AbstractUser):
@@ -18,9 +16,17 @@ class CustomUser(AbstractUser):
     bio = models.TextField("بیوگرافی")
     birthdate = models.DateField(verbose_name="تاریخ تولد ", null=True)
 
+    # 🟢 اضافه شده
+    credit = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        verbose_name="اعتبار کاربر (تومان)",
+    )
+
     class Meta:
         verbose_name = "کاربر"
-        verbose_name_plural = "کاربر"
+        verbose_name_plural = "کاربران"
 
     def __str__(self):
         return self.username
