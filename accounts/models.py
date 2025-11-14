@@ -16,7 +16,6 @@ class CustomUser(AbstractUser):
     bio = models.TextField("بیوگرافی")
     birthdate = models.DateField(verbose_name="تاریخ تولد ", null=True)
 
-    # 🟢 اضافه شده
     credit = models.DecimalField(
         max_digits=10,
         decimal_places=2,

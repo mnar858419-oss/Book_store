@@ -3,7 +3,6 @@
 
 {% block main %}
 
-<!-- Modal حذف کتاب -->
 <div class="modal fade" id="delete_book_modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -22,7 +21,6 @@
     </div>
 </div>
 
-<!-- بخش نمایش کتاب -->
 <div class="row mt-5">
     <div class="col-sm-4">
         <div class="card">
@@ -66,7 +64,6 @@
 
 
 
-<!-- بخش نظرات -->
 <div class="container">
     <div class="reviews-section">
         <h2 class="text-white">نظرات کاربران ({{ reviews.count }})</h2>
@@ -123,7 +120,6 @@
                 </div>
             {% endif %}
 
-            <!-- فرم پاسخ -->
             {% if user.is_authenticated %}
             <button type="button" class="btn btn-sm btn-info mt-3" 
                     data-bs-toggle="collapse" data-bs-target="#replyForm{{ review.id }}">
@@ -143,7 +139,6 @@
             {% endif %}
         </div>
 
-        <!-- مودال مشاهده کامل نظر -->
         <div class="modal fade" id="reviewModal{{ review.id }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -157,7 +152,6 @@
             </div>
         </div>
 
-        <!-- مودال پاسخ‌ها -->
         <div class="modal fade" id="repliesModal{{ review.id }}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
